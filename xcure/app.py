@@ -126,8 +126,9 @@ def delete_patient(patient_id):
 def patient_dashboard():
     if request.method == 'POST':
         patient_id = request.form.get('patient_id')
+        patient_password = request.form.get('password')
         cursor = connection.cursor()
-        cursor.execute("SELECT * FROM patients WHERE patient_id = %s", (patient_id,))
+        cursor.execute("SELECT * FROM patients WHERE patient_id = %s AND password = %s", (patient_id, patient_password))
         patient = cursor.fetchone()
         cursor.close()
         if patient:
